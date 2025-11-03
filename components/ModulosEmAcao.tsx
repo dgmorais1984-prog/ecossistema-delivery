@@ -1,21 +1,17 @@
 // components/ModulosEmAcao.tsx
-"use client"; // ESSENCIAL: Esta página agora usa 'useState'
+"use client";
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { useState } from "react"; // Importar useState para controlar o modal
+import { useState } from "react";
 
-// Importar a NOVA biblioteca
 import Lightbox from "yet-another-react-lightbox";
-// Importar os estilos da NOVA biblioteca
 import "yet-another-react-lightbox/styles.css";
 
-// Importar plugins (opcional, mas legal para ver thumbnails)
 import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails";
 import "yet-another-react-lightbox/plugins/thumbnails.css";
 import Zoom from "yet-another-react-lightbox/plugins/zoom";
 
-// Componente para um grupo de imagens de um módulo
 const ModuloDisplay = ({
   title,
   description,
@@ -30,17 +26,15 @@ const ModuloDisplay = ({
   const [open, setOpen] = useState(false);
   const [index, setIndex] = useState(0);
 
-  // Formata as imagens para o formato que a nova biblioteca espera
   const slides = images.map((img) => ({
     src: img.src,
     alt: img.alt,
-    title: img.alt, // Usa o 'alt' como título no lightbox
+    title: img.alt,
   }));
 
   return (
     <motion.div
-      // --- ESTA É A CORREÇÃO 1: REMOVI O 'h-full' ---
-      className="bg-gray-800 p-6 rounded-xl border border-gray-700" 
+      className="bg-gray-800 p-6 rounded-xl border border-gray-700"
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.3 }}
@@ -64,27 +58,28 @@ const ModuloDisplay = ({
               height={800}
               className="w-full h-auto rounded-lg shadow-md border border-gray-600 object-cover cursor-pointer hover:scale-105 transition-transform duration-200"
               onClick={() => {
-                setIndex(idx); 
-                setOpen(true); 
+                setIndex(idx);
+                setOpen(true);
               }}
-              
-              // --- ESTA É A CORREÇÃO 2: OTIMIZAÇÃO DE CARREGAMENTO ---
-              loading="lazy"
-              quality={75}
-              sizes="(max-width: 640px) 50vw, 33vw"
+              // MUDANÇAS CRÍTICAS AQUI:
+              priority={idx === 0} // Primeira imagem de cada módulo carrega com prioridade
+              placeholder="blur" // Adiciona blur enquanto carrega
+              blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg==" // Placeholder cinza
+              quality={85} // Aumentei a qualidade um pouco
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              unoptimized={false} // Garante que o Next.js otimize
             />
           </motion.div>
         ))}
       </div>
 
-      {/* Lightbox para exibir as imagens em tela cheia */}
       <Lightbox
         open={open}
         close={() => setOpen(false)}
         index={index}
-        slides={slides} 
-        plugins={[Thumbnails, Zoom]} 
-        controller={{ closeOnPullDown: true }} 
+        slides={slides}
+        plugins={[Thumbnails, Zoom]}
+        controller={{ closeOnPullDown: true }}
       />
     </motion.div>
   );
@@ -115,7 +110,6 @@ export function ModulosEmAcao() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-10 lg:gap-8">
           
-          {/* MÓDULO DONO (Mantive seus nomes de arquivo) */}
           <ModuloDisplay
             title="Módulo Dono"
             description="Controle total do seu negócio na palma da mão."
@@ -148,7 +142,6 @@ export function ModulosEmAcao() {
             ]}
           />
 
-          {/* MÓDULO CAIXA (Mantive seus nomes de arquivo) */}
           <ModuloDisplay
             title="Módulo Caixa"
             description="Fechamento rápido e gestão inteligente do salão."
@@ -181,7 +174,6 @@ export function ModulosEmAcao() {
             ]}
           />
 
-          {/* MÓDULO GARÇOM (Mantive seus nomes de arquivo) */}
           <ModuloDisplay
             title="Módulo Garçom"
             description="Agilidade no atendimento e envio de pedidos."
@@ -199,7 +191,6 @@ export function ModulosEmAcao() {
                 src: "/modulos-em-acao/garcom/garcom-pedido.jpg",
                 alt: "Tela de novo pedido do garçom",
               },
-
               {
                 src: "/modulos-em-acao/garcom/garcom-opcoes.jpg",
                 alt: "Tela de novo pedido do garçom",
@@ -211,7 +202,6 @@ export function ModulosEmAcao() {
             ]}
           />
 
-          {/* MÓDULO COZINHA (Mantive seus nomes de arquivo) */}
           <ModuloDisplay
             title="Módulo Cozinha"
             description="Organização da fila de preparo e avisos em tempo real."
@@ -225,7 +215,6 @@ export function ModulosEmAcao() {
                 src: "/modulos-em-acao/cozinha/cozinha-itens.jpg",
                 alt: "Aviso de pedido pronto",
               },
-
               {
                 src: "/modulos-em-acao/cozinha/cozinha-preparo.jpg",
                 alt: "Aviso de pedido pronto",
@@ -233,7 +222,6 @@ export function ModulosEmAcao() {
             ]}
           />
 
-          {/* APP DO CLIENTE (Mantive seus nomes de arquivo) */}
           <ModuloDisplay
             title="App do Cliente"
             description="Seu delivery próprio na mão do seu cliente."
@@ -251,12 +239,10 @@ export function ModulosEmAcao() {
                 src: "/modulos-em-acao/cliente/cliente-checkout.jpg",
                 alt: "Rastreamento de motoboy",
               },
-
               {
                 src: "/modulos-em-acao/cliente/cliente-checkout2.jpg",
                 alt: "Rastreamento de motoboy",
               },
-
               {
                 src: "/modulos-em-acao/cliente/cliente-status.jpg",
                 alt: "Rastreamento de motoboy",
@@ -268,7 +254,6 @@ export function ModulosEmAcao() {
             ]}
           />
 
-          {/* APP DO MOTOBOY (Mantive seus nomes de arquivo) */}
           <ModuloDisplay
             title="App do Motoboy"
             description="Gestão de entregas eficiente e rastreio em tempo real."
