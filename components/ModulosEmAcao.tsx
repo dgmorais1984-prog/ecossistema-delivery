@@ -1,15 +1,35 @@
 // components/ModulosEmAcao.tsx
-"use client"; 
+"use client";
 
 import { motion } from "framer-motion";
-// REMOVEMOS O 'next/image'
-import { useState } from "react"; 
-
+import { useState } from "react";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails";
 import "yet-another-react-lightbox/plugins/thumbnails.css";
 import Zoom from "yet-another-react-lightbox/plugins/zoom";
+
+// Componente SIMPLES de imagem - sem complicação
+const SimpleImage = ({ 
+  src, 
+  alt, 
+  onClick 
+}: { 
+  src: string; 
+  alt: string; 
+  onClick: () => void;
+}) => {
+  return (
+    <img
+      src={src}
+      alt={alt}
+      className="w-full h-auto rounded-lg shadow-md border border-gray-600 object-cover cursor-pointer hover:scale-105 transition-transform duration-200"
+      onClick={onClick}
+      loading="lazy"
+      decoding="async"
+    />
+  );
+};
 
 // Componente para um grupo de imagens de um módulo
 const ModuloDisplay = ({
@@ -33,36 +53,34 @@ const ModuloDisplay = ({
   }));
 
   return (
-    // Animação SÓ NO CARD (ISSO ESTÁ CERTO)
     <motion.div
-      className="bg-gray-800 p-6 rounded-xl border border-gray-700"
+      className="bg-gray-800 p-4 sm:p-6 rounded-xl border border-gray-700"
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.3 }}
+      viewport={{ once: true, amount: 0.1 }}
       transition={{ duration: 0.6, delay: delay }}
     >
-      <h3 className="text-3xl font-semibold text-white">{title}</h3>
-      <p className="mt-2 text-gray-400">{description}</p>
-      <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
-        
-        {/* --- ESTA É A SOLUÇÃO --- */}
-        {/* Eu REMOVI o <motion.div> que estava aqui */}
+      <h3 className="text-2xl sm:text-3xl font-semibold text-white">{title}</h3>
+      <p className="mt-2 text-gray-400 text-sm sm:text-base">{description}</p>
+      <div className="mt-4 sm:mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
         {images.map((img, idx) => (
-          <div key={idx}>
-            <img
+          <motion.div
+            key={idx}
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.4, delay: delay + idx * 0.05 }}
+          >
+            <SimpleImage
               src={img.src}
               alt={img.alt}
-              className="w-full h-auto rounded-lg shadow-md border border-gray-600 object-cover cursor-pointer hover:scale-105 transition-transform duration-200"
               onClick={() => {
                 setIndex(idx); 
                 setOpen(true); 
               }}
-              loading="lazy" 
             />
-          </div>
+          </motion.div>
         ))}
-        {/* --- FIM DA SOLUÇÃO --- */}
-
       </div>
 
       <Lightbox
@@ -78,33 +96,31 @@ const ModuloDisplay = ({
 };
 
 export function ModulosEmAcao() {
-  // O resto da função é O MESMO que você já tem
-  // (Eu mantive todos os seus nomes de arquivo .jpg)
   return (
     <section
       id="modulos"
-      className="w-full py-16 md:py-24 bg-gray-900 text-white"
+      className="w-full py-12 md:py-20 bg-gray-900 text-white"
     >
       <div className="container mx-auto px-4">
         <motion.div
-          className="text-center mb-16"
+          className="text-center mb-12"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.7 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.5 }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-white">
+          <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-white">
             Módulos Detalhados: Veja em Ação!
           </h2>
-          <p className="mt-4 text-lg max-w-2xl mx-auto text-gray-400">
+          <p className="mt-3 text-base md:text-lg max-w-2xl mx-auto text-gray-400">
             Explore a interface real de cada módulo e suas funcionalidades
             principais. Clique nas imagens para ampliar.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-10 lg:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-6">
           
-          {/* MÓDULO DONO (Mantive seus nomes) */}
+          {/* MÓDULO DONO */}
           <ModuloDisplay
             title="Módulo Dono"
             description="Controle total do seu negócio na palma da mão."
@@ -137,7 +153,7 @@ export function ModulosEmAcao() {
             ]}
           />
 
-          {/* MÓDULO CAIXA (Mantive seus nomes) */}
+          {/* MÓDULO CAIXA */}
           <ModuloDisplay
             title="Módulo Caixa"
             description="Fechamento rápido e gestão inteligente do salão."
@@ -157,20 +173,20 @@ export function ModulosEmAcao() {
               },
 			  {
                 src: "/modulos-em-acao/caixa/caixa-detalhes-entrega.jpg",
-                alt: "Tela de cancelamento de pedido",
+                alt: "Detalhes da entrega",
               },
 			  {
                 src: "/modulos-em-acao/caixa/caixa-salao.jpg",
-                alt: "Tela de cancelamento de pedido",
+                alt: "Controle do salão",
               },
 			  {
                 src: "/modulos-em-acao/caixa/caixa-movimento.jpg",
-                alt: "Tela de cancelamento de pedido",
+                alt: "Movimento do caixa",
               },
             ]}
           />
 
-          {/* MÓDULO GARÇOM (Mantive seus nomes) */}
+          {/* MÓDULO GARÇOM */}
           <ModuloDisplay
             title="Módulo Garçom"
             description="Agilidade no atendimento e envio de pedidos."
@@ -182,25 +198,24 @@ export function ModulosEmAcao() {
               },
               {
                 src: "/modulos-em-acao/garcom/garcom-itens.jpg",
-                alt: "Tela de novo pedido do garçom",
+                alt: "Seleção de itens",
               },
 			  {
                 src: "/modulos-em-acao/garcom/garcom-pedido.jpg",
-                alt: "Tela de novo pedido do garçom",
+                alt: "Detalhes do pedido",
               },
-			  
 			  {
                 src: "/modulos-em-acao/garcom/garcom-opcoes.jpg",
-                alt: "Tela de novo pedido do garçom",
+                alt: "Opções do pedido",
               },
 			  {
                 src: "/modulos-em-acao/garcom/garcom-confirmar-entrega.jpg",
-                alt: "Tela de novo pedido do garçom",
+                alt: "Confirmação de entrega",
               },
             ]}
           />
 
-          {/* MÓDULO COZINHA (Mantive seus nomes) */}
+          {/* MÓDULO COZINHA */}
           <ModuloDisplay
             title="Módulo Cozinha"
             description="Organização da fila de preparo e avisos em tempo real."
@@ -212,18 +227,16 @@ export function ModulosEmAcao() {
               },
               {
                 src: "/modulos-em-acao/cozinha/cozinha-itens.jpg",
-                alt: "Aviso de pedido pronto",
+                alt: "Itens do pedido",
               },
-			  
 			  {
                 src: "/modulos-em-acao/cozinha/cozinha-preparo.jpg",
-                alt: "Aviso de pedido pronto",
+                alt: "Preparo do pedido",
               },
-			  
             ]}
           />
 
-          {/* APP DO CLIENTE (Mantive seus nomes) */}
+          {/* APP DO CLIENTE */}
           <ModuloDisplay
             title="App do Cliente"
             description="Seu delivery próprio na mão do seu cliente."
@@ -239,17 +252,15 @@ export function ModulosEmAcao() {
               },
               {
                 src: "/modulos-em-acao/cliente/cliente-checkout.jpg",
-                alt: "Rastreamento de motoboy",
+                alt: "Checkout do pedido",
               },
-			  
 			  {
                 src: "/modulos-em-acao/cliente/cliente-checkout2.jpg",
-                alt: "Rastreamento de motoboy",
+                alt: "Finalização do pedido",
               },
-
-				{
+			  {
                 src: "/modulos-em-acao/cliente/cliente-status.jpg",
-                alt: "Rastreamento de motoboy",
+                alt: "Status do pedido",
               },
 			  {
                 src: "/modulos-em-acao/cliente/cliente-rastreio.jpg",
@@ -258,7 +269,7 @@ export function ModulosEmAcao() {
             ]}
           />
 
-          {/* APP DO MOTOBOY (Mantive seus nomes) */}
+          {/* APP DO MOTOBOY */}
           <ModuloDisplay
             title="App do Motoboy"
             description="Gestão de entregas eficiente e rastreio em tempo real."
@@ -277,7 +288,7 @@ export function ModulosEmAcao() {
                 alt: "Pedido Aceito",
               },
 			  {
-                src: "/modulos-em-acao/motoboy/motoboy-entrega.jpg", 
+                src: "/modulos-em-acao/motoboy/motoboy-entrega.jpg",
                 alt: "Confirmação de entrega",
               },
             ]}
