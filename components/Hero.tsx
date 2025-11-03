@@ -111,12 +111,7 @@ export function Hero() {
             </p>
 
             <div className="mt-10 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
-              <a
-                href="#video"
-                className="px-8 py-3 w-full sm:w-auto font-semibold rounded-md bg-blue-600 hover:bg-blue-700 transition-all duration-300"
-              >
-                Ver Demonstração
-              </a>
+              {/* REMOVIDO: Botão "Ver Demonstração" */}
               <a
                 href="#contato"
                 className="px-8 py-3 w-full sm:w-auto font-semibold rounded-md bg-gray-700 hover:bg-gray-600 transition-all duration-300"
@@ -148,11 +143,12 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Seta para baixo animada para "Role para ver mais" */}
+      {/* Seta para baixo animada para "Role para ver mais" - POSIÇÃO CORRIGIDA */}
       <motion.div
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center text-gray-400 z-30"
         animate={{ y: [0, -10, 0] }} // Animação de "bounce"
         transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+        style={{ zIndex: 50 }} // Garante que fique acima de tudo
       >
         <ChevronDown size={32} />
         <span className="text-sm mt-1">Role para ver mais</span>
