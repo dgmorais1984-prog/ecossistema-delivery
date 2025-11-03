@@ -121,17 +121,17 @@ export function Hero() {
                 href="#contato"
                 className="px-8 py-3 w-full sm:w-auto font-semibold rounded-md bg-gray-700 hover:bg-gray-600 transition-all duration-300"
               >
-                Agendar Demonstação
+                Agendar Demonstração
               </a>
             </div>
           </motion.div>
 
-          {/* Coluna 2: IMAGEM DO APP */}
+          {/* Coluna 2: IMAGEM DO APP - AGORA VISÍVEL NO MOBILE TAMBÉM */}
           <motion.div
-            // --- ALTERAÇÃO AQUI ---
-            // No CELULAR: A imagem do app fica ESCONDIDA para não poluir
-            // No DESKTOP: Ela aparece
-            className="hidden lg:flex justify-center lg:justify-end"
+            // --- CORREÇÃO AQUI ---
+            // REMOVIDO: hidden lg:flex
+            // ADICIONADO: flex em todas as telas
+            className="flex justify-center lg:justify-end"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
@@ -141,7 +141,7 @@ export function Hero() {
               alt="Tela Inicial do Módulo Dono"
               width={350}
               height={700}
-              className="rounded-2xl shadow-2xl shadow-blue-500/20 object-cover"
+              className="rounded-2xl shadow-2xl shadow-blue-500/20 object-cover max-w-[280px] lg:max-w-none"
               priority
             />
           </motion.div>
