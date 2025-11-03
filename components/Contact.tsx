@@ -45,7 +45,7 @@ export function Contact() {
             type="hidden" 
             name="_next" 
             // 3. Coloque o link da sua página de obrigado
-            value="https://ecossistema-delivery-git-main-diogos-projects-987af13e.vercel.app/obrigado" 
+            value="https://ecossistema-delivery.vercel.app/obrigado" 
           />
           
           {/* Opcional: Desativa o Captcha (só durante o teste) */}
