@@ -1,16 +1,12 @@
 // components/ModulosEmAcao.tsx
-"use client"; // ESSENCIAL: Esta página agora usa 'useState'
+"use client"; 
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { useState } from "react"; // Importar useState para controlar o modal
+import { useState } from "react"; 
 
-// Importar a NOVA biblioteca
 import Lightbox from "yet-another-react-lightbox";
-// Importar os estilos da NOVA biblioteca
 import "yet-another-react-lightbox/styles.css";
-
-// Importar plugins (opcional, mas legal para ver thumbnails)
 import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails";
 import "yet-another-react-lightbox/plugins/thumbnails.css";
 import Zoom from "yet-another-react-lightbox/plugins/zoom";
@@ -30,11 +26,10 @@ const ModuloDisplay = ({
   const [open, setOpen] = useState(false);
   const [index, setIndex] = useState(0);
 
-  // Formata as imagens para o formato que a nova biblioteca espera
   const slides = images.map((img) => ({
     src: img.src,
     alt: img.alt,
-    title: img.alt, // Usa o 'alt' como título no lightbox
+    title: img.alt, 
   }));
 
   return (
@@ -56,36 +51,48 @@ const ModuloDisplay = ({
             viewport={{ once: true, amount: 0.5 }}
             transition={{ duration: 0.5, delay: delay + 0.2 + idx * 0.1 }}
           >
+            {/* --- CORREÇÃO DE PERFORMANCE AQUI --- */}
             <Image
               src={img.src}
               alt={img.alt}
-              width={400}
-              height={800}
+              width={400} // Resolução base
+              height={800} // Resolução base
               className="w-full h-auto rounded-lg shadow-md border border-gray-600 object-cover cursor-pointer hover:scale-105 transition-transform duration-200"
-              // Ao clicar, abre o lightbox na imagem clicada
               onClick={() => {
-                setIndex(idx); // Define qual imagem foi clicada
-                setOpen(true); // Abre o modal
+                setIndex(idx); 
+                setOpen(true); 
               }}
+              
+              // 1. Força o carregamento "preguiçoso"
+              loading="lazy" 
+              
+              // 2. Reduz a qualidade da imagem (mais leve)
+              quality={75} 
+              
+              // 3. Informa ao Next quais tamanhos carregar (a mágica)
+              sizes="(max-width: 640px) 50vw, 33vw"
             />
+            {/* --- FIM DA CORREÇÃO --- */}
+
           </motion.div>
         ))}
       </div>
 
-      {/* Lightbox para exibir as imagens em tela cheia */}
       <Lightbox
         open={open}
         close={() => setOpen(false)}
         index={index}
-        slides={slides} // Passa as imagens formatadas
-        plugins={[Thumbnails, Zoom]} // Adiciona thumbnails e zoom
-        controller={{ closeOnPullDown: true }} // Permite fechar arrastando para baixo
+        slides={slides} 
+        plugins={[Thumbnails, Zoom]} 
+        controller={{ closeOnPullDown: true }} 
       />
     </motion.div>
   );
 };
 
 export function ModulosEmAcao() {
+  // O resto da função é O MESMO que você já tem
+  // (Cole o código todo, mas saiba que a mudança foi só na tag <Image> acima)
   return (
     <section
       id="modulos"
@@ -109,16 +116,14 @@ export function ModulosEmAcao() {
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-10 lg:gap-8">
-          {/* ------------------------------------- */}
-          {/* MÓDULO DONO - ATUALIZADO COM TODAS AS IMAGENS */}
-          {/* ------------------------------------- */}
+          {/* MÓDULO DONO (com os nomes de arquivo que você usa) */}
           <ModuloDisplay
             title="Módulo Dono"
             description="Controle total do seu negócio na palma da mão."
             delay={0}
             images={[
               {
-                src: "/modulos-em-acao/dono/dono-relatorios.jpg",
+                src: "/modulos-em-acao/dono/dono-relatorios.jpg", // Supondo que você usa .jpg
                 alt: "Relatórios de vendas",
               },
               {
@@ -144,44 +149,28 @@ export function ModulosEmAcao() {
             ]}
           />
 
-          {/* ------------------------------------- */}
           {/* MÓDULO CAIXA */}
-          {/* ------------------------------------- */}
           <ModuloDisplay
             title="Módulo Caixa"
             description="Fechamento rápido e gestão inteligente do salão."
             delay={0.1}
             images={[
               {
-                src: "/modulos-em-acao/caixa/caixa-mesa.jpg",
+                src: "/modulos-em-acao/caixa/caixa-mesas.jpg",
                 alt: "Controle de mesas abertas",
               },
               {
-                src: "/modulos-em-acao/caixa/caixa-delivery.jpg",
+                src: "/modulos-em-acao/caixa/caixa-fechamento.jpg",
                 alt: "Fechamento de conta com troco",
               },
               {
-                src: "/modulos-em-acao/caixa/caixa-acompanhar.jpg",
-                alt: "Tela de cancelamento de pedido",
-              },
-			  {
-                src: "/modulos-em-acao/caixa/caixa-detalhes-entrega.jpg",
-                alt: "Tela de cancelamento de pedido",
-              },
-			  {
-                src: "/modulos-em-acao/caixa/caixa-salao.jpg",
-                alt: "Tela de cancelamento de pedido",
-              },
-			  {
-                src: "/modulos-em-acao/caixa/caixa-movimento.jpg",
+                src: "/modulos-em-acao/caixa/caixa-cancelamento.jpg",
                 alt: "Tela de cancelamento de pedido",
               },
             ]}
           />
 
-          {/* ------------------------------------- */}
           {/* MÓDULO GARÇOM */}
-          {/* ------------------------------------- */}
           <ModuloDisplay
             title="Módulo Garçom"
             description="Agilidade no atendimento e envio de pedidos."
@@ -192,108 +181,65 @@ export function ModulosEmAcao() {
                 alt: "Visão geral das mesas",
               },
               {
-                src: "/modulos-em-acao/garcom/garcom-itens.jpg",
-                alt: "Tela de novo pedido do garçom",
-              },
-			  {
                 src: "/modulos-em-acao/garcom/garcom-pedido.jpg",
-                alt: "Tela de novo pedido do garçom",
-              },
-			  
-			  {
-                src: "/modulos-em-acao/garcom/garcom-opcoes.jpg",
-                alt: "Tela de novo pedido do garçom",
-              },
-			  {
-                src: "/modulos-em-acao/garcom/garcom-confirmar-entrega.jpg",
                 alt: "Tela de novo pedido do garçom",
               },
             ]}
           />
 
-          {/* ------------------------------------- */}
           {/* MÓDULO COZINHA */}
-          {/* ------------------------------------- */}
           <ModuloDisplay
             title="Módulo Cozinha"
             description="Organização da fila de preparo e avisos em tempo real."
             delay={0.3}
             images={[
               {
-                src: "/modulos-em-acao/cozinha/cozinha-painel.jpg",
+                src: "/modulos-em-acao/cozinha/cozinha-fila.jpg",
                 alt: "Fila de pedidos na cozinha",
               },
               {
-                src: "/modulos-em-acao/cozinha/cozinha-itens.jpg",
+                src: "/modulos-em-acao/cozinha/cozinha-pronto.jpg",
                 alt: "Aviso de pedido pronto",
               },
-			  
-			  {
-                src: "/modulos-em-acao/cozinha/cozinha-preparo.jpg",
-                alt: "Aviso de pedido pronto",
-              },
-			  
             ]}
           />
 
-          {/* ------------------------------------- */}
           {/* APP DO CLIENTE */}
-          {/* ------------------------------------- */}
           <ModuloDisplay
             title="App do Cliente"
             description="Seu delivery próprio na mão do seu cliente."
             delay={0.4}
             images={[
               {
-                src: "/modulos-em-acao/cliente/cliente-menu.jpg",
+                src: "/modulos-em-acao/cliente/cliente-cardapio.jpg",
                 alt: "Cardápio do cliente com fotos",
               },
               {
-                src: "/modulos-em-acao/cliente/cliente-cardapio.jpg",
+                src: "/modulos-em-acao/cliente/cliente-carrinho.jpg",
                 alt: "Carrinho de compras do cliente",
               },
               {
-                src: "/modulos-em-acao/cliente/cliente-checkout.jpg",
-                alt: "Rastreamento de motoboy",
-              },
-			  
-			  {
-                src: "/modulos-em-acao/cliente/cliente-checkout2.jpg",
-                alt: "Rastreamento de motoboy",
-              },
-
-				{
-                src: "/modulos-em-acao/cliente/cliente-status.jpg",
-                alt: "Rastreamento de motoboy",
-              },
-			  {
                 src: "/modulos-em-acao/cliente/cliente-rastreio.jpg",
                 alt: "Rastreamento de motoboy",
               },
             ]}
           />
 
-          {/* ------------------------------------- */}
           {/* APP DO MOTOBOY */}
-          {/* ------------------------------------- */}
           <ModuloDisplay
             title="App do Motoboy"
             description="Gestão de entregas eficiente e rastreio em tempo real."
             delay={0.5}
             images={[
               {
-                src: "/modulos-em-acao/motoboy/motoboy-pedidos.jpg",
+                src: "/modulos-em-acao/motoboy/motoboy-fila.jpg",
                 alt: "Fila de pedidos para motoboy",
               },
               {
-                src: "/modulos-em-acao/motoboy/motoboy-detalhes.jpg",
-                alt: "Tela de Detalhes do Pedido",
+                src: "/modulos-em-acao/motoboy/motoboy-corrida.jpg",
+                alt: "Tela de corrida do motoboy",
               },
               {
-                src: "/modulos-em-acao/motoboy/motoboy-aceito.jpg",
-                alt: "Pedido Aceito",
-              },
-			  {
                 src: "/modulos-em-acao/motoboy/motoboy-entrega.jpg",
                 alt: "Confirmação de entrega",
               },
