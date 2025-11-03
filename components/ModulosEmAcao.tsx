@@ -2,8 +2,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
@@ -25,12 +24,17 @@ const ModuloDisplay = ({
 }) => {
   const [open, setOpen] = useState(false);
   const [index, setIndex] = useState(0);
+  const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set());
 
   const slides = images.map((img) => ({
     src: img.src,
     alt: img.alt,
     title: img.alt,
   }));
+
+  const handleImageLoad = (idx: number) => {
+    setLoadedImages(prev => new Set(prev).add(idx));
+  };
 
   return (
     <motion.div
@@ -42,6 +46,7 @@ const ModuloDisplay = ({
     >
       <h3 className="text-3xl font-semibold text-white">{title}</h3>
       <p className="mt-2 text-gray-400">{description}</p>
+      
       <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
         {images.map((img, idx) => (
           <motion.div
@@ -50,24 +55,31 @@ const ModuloDisplay = ({
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, amount: 0.5 }}
             transition={{ duration: 0.5, delay: delay + 0.2 + idx * 0.1 }}
+            className="relative w-full aspect-[9/16] bg-gray-700 rounded-lg overflow-hidden"
           >
-            <Image
+            {/* Skeleton loading */}
+            {!loadedImages.has(idx) && (
+              <div className="absolute inset-0 bg-gray-700 animate-pulse flex items-center justify-center">
+                <svg className="w-12 h-12 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+              </div>
+            )}
+            
+            {/* Usando <img> nativo ao invés do Next Image */}
+            <img
               src={img.src}
               alt={img.alt}
-              width={400}
-              height={800}
-              className="w-full h-auto rounded-lg shadow-md border border-gray-600 object-cover cursor-pointer hover:scale-105 transition-transform duration-200"
+              loading="lazy"
+              decoding="async"
+              className={`w-full h-full object-cover cursor-pointer hover:scale-105 transition-all duration-200 ${
+                loadedImages.has(idx) ? 'opacity-100' : 'opacity-0'
+              }`}
               onClick={() => {
                 setIndex(idx);
                 setOpen(true);
               }}
-              // MUDANÇAS CRÍTICAS AQUI:
-              priority={idx === 0} // Primeira imagem de cada módulo carrega com prioridade
-              placeholder="blur" // Adiciona blur enquanto carrega
-              blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg==" // Placeholder cinza
-              quality={85} // Aumentei a qualidade um pouco
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-              unoptimized={false} // Garante que o Next.js otimize
+              onLoad={() => handleImageLoad(idx)}
             />
           </motion.div>
         ))}
@@ -157,19 +169,19 @@ export function ModulosEmAcao() {
               },
               {
                 src: "/modulos-em-acao/caixa/caixa-acompanhar.jpg",
-                alt: "Tela de cancelamento de pedido",
+                alt: "Acompanhamento de pedidos",
               },
               {
                 src: "/modulos-em-acao/caixa/caixa-detalhes-entrega.jpg",
-                alt: "Tela de cancelamento de pedido",
+                alt: "Detalhes da entrega",
               },
               {
                 src: "/modulos-em-acao/caixa/caixa-salao.jpg",
-                alt: "Tela de cancelamento de pedido",
+                alt: "Gestão do salão",
               },
               {
                 src: "/modulos-em-acao/caixa/caixa-movimento.jpg",
-                alt: "Tela de cancelamento de pedido",
+                alt: "Movimento do caixa",
               },
             ]}
           />
@@ -185,19 +197,19 @@ export function ModulosEmAcao() {
               },
               {
                 src: "/modulos-em-acao/garcom/garcom-itens.jpg",
-                alt: "Tela de novo pedido do garçom",
+                alt: "Seleção de itens do cardápio",
               },
               {
                 src: "/modulos-em-acao/garcom/garcom-pedido.jpg",
-                alt: "Tela de novo pedido do garçom",
+                alt: "Pedido em andamento",
               },
               {
                 src: "/modulos-em-acao/garcom/garcom-opcoes.jpg",
-                alt: "Tela de novo pedido do garçom",
+                alt: "Opções de personalização",
               },
               {
                 src: "/modulos-em-acao/garcom/garcom-confirmar-entrega.jpg",
-                alt: "Tela de novo pedido do garçom",
+                alt: "Confirmação de entrega",
               },
             ]}
           />
@@ -213,11 +225,11 @@ export function ModulosEmAcao() {
               },
               {
                 src: "/modulos-em-acao/cozinha/cozinha-itens.jpg",
-                alt: "Aviso de pedido pronto",
+                alt: "Itens do pedido",
               },
               {
                 src: "/modulos-em-acao/cozinha/cozinha-preparo.jpg",
-                alt: "Aviso de pedido pronto",
+                alt: "Pedido em preparo",
               },
             ]}
           />
@@ -233,19 +245,19 @@ export function ModulosEmAcao() {
               },
               {
                 src: "/modulos-em-acao/cliente/cliente-cardapio.jpg",
-                alt: "Carrinho de compras do cliente",
+                alt: "Categorias do cardápio",
               },
               {
                 src: "/modulos-em-acao/cliente/cliente-checkout.jpg",
-                alt: "Rastreamento de motoboy",
+                alt: "Carrinho e checkout",
               },
               {
                 src: "/modulos-em-acao/cliente/cliente-checkout2.jpg",
-                alt: "Rastreamento de motoboy",
+                alt: "Finalização do pedido",
               },
               {
                 src: "/modulos-em-acao/cliente/cliente-status.jpg",
-                alt: "Rastreamento de motoboy",
+                alt: "Status do pedido",
               },
               {
                 src: "/modulos-em-acao/cliente/cliente-rastreio.jpg",
