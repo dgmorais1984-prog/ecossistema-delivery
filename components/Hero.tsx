@@ -137,7 +137,7 @@ export function Hero() {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <Image
-              src="/modulos-em-acao/dono/dono-inicio.png"
+              src="/modulos-em-acao/dono/dono-inicio.jpg"
               alt="Tela Inicial do Módulo Dono"
               width={350}
               height={700}
