@@ -3,9 +3,15 @@ import type { Metadata } from "next";
 import "./globals.css"; // Importa o CSS global que limpamos
 
 export const metadata: Metadata = {
-  title: "Ecossistema Delivery | A Solução Completa para Lanchonetes",
+  // 1. TÍTULO (O mais importante - 60 caracteres)
+  title: "Sistema de Gestão e Delivery Próprio para Lanchonetes | Sem Taxas",
+
+  // 2. DESCRIÇÃO (O que convence o clique - 160 caracteres)
   description:
-    "Plataforma Multi-Tenant com App do Cliente, Gestão da Loja e App do Motoboy.",
+    "Tenha seu sistema de gestão completo (caixa, salão, cozinha) e app de delivery próprio. Plataforma 100% modular. Agende uma demonstração gratuita!",
+  
+  // 3. PALAVRAS-CHAVE (Bônus para ajudar o Google)
+  keywords: "sistema para lanchonete, sistema para restaurante, app de delivery proprio, gestao de salao, sistema de caixa, app de garcom",
 };
 
 export default function RootLayout({
