@@ -45,7 +45,7 @@ export function VideoDemo() {
               src="/demo-video.mp4" // Puxa o vídeo da pasta 'public'
               type="video/mp4"
             />
-            Seu navegador não suporta o player de vídeo.
+            Seu navegador não suporta o player de vídeo.cd
           </video>
         </motion.div>
       </div>
