@@ -15,13 +15,15 @@ export function Hero() {
     >
       {/* Fundo com gradiente sutil */}
       <div className="absolute inset-0 z-0">
-        <div className="absolute bottom-0 left-[-20%] right-0 top-[-10%] h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle_farthest_side,rgba(255,0,182,.15),rgba(255,255,255,0))]"></div>
-        <div className="absolute bottom-0 right-[-20%] top-[-10%] h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle_farthest_side,rgba(0,122,255,.15),rgba(255,255,255,0))]"></div>
+        <div className="absolute bottom-0 left-[-20%] right-0 top-[-10%] h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle_farthest-side,rgba(255,0,182,.15),rgba(255,255,255,0))]"></div>
+        <div className="absolute bottom-0 right-[-20%] top-[-10%] h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle_farthest-side,rgba(0,122,255,.15),rgba(255,255,255,0))]"></div>
       </div>
 
-      {/* --- ÍCONES COM POSIÇÃO ABSOLUTA --- */}
+      {/* --- ÍCONES COM POSIÇÃO ABSOLUTA E RESPONSIVOS --- */}
       <motion.div
-        className="absolute top-16 left-0 right-0 z-20 flex justify-center lg:justify-start items-center gap-x-16 container mx-auto px-4"
+        // No CELULAR (default): Perto do topo (top-8) e centralizado (justify-center)
+        // No DESKTOP (lg:): Mais para baixo (lg:top-16) e na esquerda (lg:justify-start)
+        className="absolute top-8 lg:top-16 left-0 right-0 z-20 flex justify-center lg:justify-start items-center gap-x-6 lg:gap-x-16 container mx-auto px-4"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.1 }}
@@ -36,9 +38,12 @@ export function Hero() {
           <Image
             src="/icones-apps/icone-chef-tablet.png"
             alt="Ícone App Lanchonete"
-            width={200}
-            height={200}
-            className="rounded-3xl shadow-lg border border-gray-700"
+            width={200} // Resolução (mantém alta)
+            height={200} // Resolução (mantém alta)
+            // --- ALTERAÇÃO RESPONSIVA ---
+            // CELULAR: w-20 h-20 (80px)
+            // DESKTOP: lg:w-48 lg:h-48 (192px)
+            className="w-20 h-20 lg:w-48 lg:h-48 rounded-2xl lg:rounded-3xl shadow-lg border border-gray-700"
           />
         </motion.div>
 
@@ -52,9 +57,10 @@ export function Hero() {
           <Image
             src="/icones-apps/icone-delivery-bag.png"
             alt="Ícone App Delivery Cliente"
-            width={200}
-            height={200}
-            className="rounded-3xl shadow-lg border border-gray-700"
+            width={200} // Resolução
+            height={200} // Resolução
+            // --- ALTERAÇÃO RESPONSIVA ---
+            className="w-20 h-20 lg:w-48 lg:h-48 rounded-2xl lg:rounded-3xl shadow-lg border border-gray-700"
           />
         </motion.div>
 
@@ -68,17 +74,20 @@ export function Hero() {
           <Image
             src="/icones-apps/icone-motoboy.png"
             alt="Ícone App Motoboy"
-            width={200}
-            height={200}
-            className="rounded-3xl shadow-lg border border-gray-700"
+            width={200} // Resolução
+            height={200} // Resolução
+            // --- ALTERAÇÃO RESPONSIVA ---
+            className="w-20 h-20 lg:w-48 lg:h-48 rounded-2xl lg:rounded-3xl shadow-lg border border-gray-700"
           />
         </motion.div>
       </motion.div>
 
       {/* Container do Conteúdo */}
       <div className="container mx-auto px-4 z-10">
-        {/* REMOVI O 'pt-72' DESTE GRID */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+        
+        {/* --- ALTERAÇÃO AQUI --- */}
+        {/* Adicionando padding-top RESPONSIVO para o texto não bater nos ícones */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center pt-40 lg:pt-0">
           
           {/* Coluna 1: Texto */}
           <motion.div
@@ -87,7 +96,7 @@ export function Hero() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
           >
-            {/* --- ALTERAÇÃO AQUI --- */}
+            {/* Título (com tamanho de fonte responsivo) */}
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
               Gerencie seu Negócio.
               <br />
@@ -100,7 +109,6 @@ export function Hero() {
               A plataforma completa que integra caixa, cozinha, garçom e seu
               app de delivery próprio. 100% modular, 100% seu.
             </p>
-            {/* --- FIM DA ALTERAÇÃO --- */}
 
             <div className="mt-10 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
               <a
@@ -120,7 +128,10 @@ export function Hero() {
 
           {/* Coluna 2: IMAGEM DO APP */}
           <motion.div
-            className="flex justify-center lg:justify-end"
+            // --- ALTERAÇÃO AQUI ---
+            // No CELULAR: A imagem do app fica ESCONDIDA para não poluir
+            // No DESKTOP: Ela aparece
+            className="hidden lg:flex justify-center lg:justify-end"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
@@ -143,7 +154,7 @@ export function Hero() {
         animate={{ y: [0, -10, 0] }} // Animação de "bounce"
         transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
       >
-        <ChevronDown size={50} />
+        <ChevronDown size={32} />
         <span className="text-sm mt-1">Role para ver mais</span>
       </motion.div>
     </section>
