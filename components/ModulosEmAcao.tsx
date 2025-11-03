@@ -118,27 +118,27 @@ export function ModulosEmAcao() {
             delay={0}
             images={[
               {
-                src: "/modulos-em-acao/dono/dono-relatorios.png",
+                src: "/modulos-em-acao/dono/dono-relatorios.jpg",
                 alt: "Relatórios de vendas",
               },
               {
-                src: "/modulos-em-acao/dono/dono-cardapio.png",
+                src: "/modulos-em-acao/dono/dono-cardapio.jpg",
                 alt: "Cadastro de cardápio",
               },
               {
-                src: "/modulos-em-acao/dono/dono-funcionarios.png",
+                src: "/modulos-em-acao/dono/dono-funcionarios.jpg",
                 alt: "Gestão de funcionários",
               },
               {
-                src: "/modulos-em-acao/dono/dono-home.png",
+                src: "/modulos-em-acao/dono/dono-home.jpg",
                 alt: "Tela inicial do módulo dono",
               },
               {
-                src: "/modulos-em-acao/dono/dono-entrega.png",
+                src: "/modulos-em-acao/dono/dono-entrega.jpg",
                 alt: "Configuração de entrega",
               },
               {
-                src: "/modulos-em-acao/dono/dono-resumo.png",
+                src: "/modulos-em-acao/dono/dono-resumo.jpg",
                 alt: "Resumo financeiro",
               },
             ]}
@@ -153,27 +153,27 @@ export function ModulosEmAcao() {
             delay={0.1}
             images={[
               {
-                src: "/modulos-em-acao/caixa/caixa-mesa.png",
+                src: "/modulos-em-acao/caixa/caixa-mesa.jpg",
                 alt: "Controle de mesas abertas",
               },
               {
-                src: "/modulos-em-acao/caixa/caixa-delivery.png",
+                src: "/modulos-em-acao/caixa/caixa-delivery.jpg",
                 alt: "Fechamento de conta com troco",
               },
               {
-                src: "/modulos-em-acao/caixa/caixa-acompanhar.png",
+                src: "/modulos-em-acao/caixa/caixa-acompanhar.jpg",
                 alt: "Tela de cancelamento de pedido",
               },
 			  {
-                src: "/modulos-em-acao/caixa/caixa-detalhes-entrega.png",
+                src: "/modulos-em-acao/caixa/caixa-detalhes-entrega.jpg",
                 alt: "Tela de cancelamento de pedido",
               },
 			  {
-                src: "/modulos-em-acao/caixa/caixa-salao.png",
+                src: "/modulos-em-acao/caixa/caixa-salao.jpg",
                 alt: "Tela de cancelamento de pedido",
               },
 			  {
-                src: "/modulos-em-acao/caixa/caixa-movimento.png",
+                src: "/modulos-em-acao/caixa/caixa-movimento.jpg",
                 alt: "Tela de cancelamento de pedido",
               },
             ]}
@@ -188,24 +188,24 @@ export function ModulosEmAcao() {
             delay={0.2}
             images={[
               {
-                src: "/modulos-em-acao/garcom/garcom-mesas.png",
+                src: "/modulos-em-acao/garcom/garcom-mesas.jpg",
                 alt: "Visão geral das mesas",
               },
               {
-                src: "/modulos-em-acao/garcom/garcom-itens.png",
+                src: "/modulos-em-acao/garcom/garcom-itens.jpg",
                 alt: "Tela de novo pedido do garçom",
               },
 			  {
-                src: "/modulos-em-acao/garcom/garcom-pedido.png",
+                src: "/modulos-em-acao/garcom/garcom-pedido.jpg",
                 alt: "Tela de novo pedido do garçom",
               },
 			  
 			  {
-                src: "/modulos-em-acao/garcom/garcom-opcoes.png",
+                src: "/modulos-em-acao/garcom/garcom-opcoes.jpg",
                 alt: "Tela de novo pedido do garçom",
               },
 			  {
-                src: "/modulos-em-acao/garcom/garcom-confirmar-entrega.png",
+                src: "/modulos-em-acao/garcom/garcom-confirmar-entrega.jpg",
                 alt: "Tela de novo pedido do garçom",
               },
             ]}
@@ -220,16 +220,16 @@ export function ModulosEmAcao() {
             delay={0.3}
             images={[
               {
-                src: "/modulos-em-acao/cozinha/cozinha-painel.png",
+                src: "/modulos-em-acao/cozinha/cozinha-painel.jpg",
                 alt: "Fila de pedidos na cozinha",
               },
               {
-                src: "/modulos-em-acao/cozinha/cozinha-itens.png",
+                src: "/modulos-em-acao/cozinha/cozinha-itens.jpg",
                 alt: "Aviso de pedido pronto",
               },
 			  
 			  {
-                src: "/modulos-em-acao/cozinha/cozinha-preparo.png",
+                src: "/modulos-em-acao/cozinha/cozinha-preparo.jpg",
                 alt: "Aviso de pedido pronto",
               },
 			  
@@ -245,29 +245,29 @@ export function ModulosEmAcao() {
             delay={0.4}
             images={[
               {
-                src: "/modulos-em-acao/cliente/cliente-menu.png",
+                src: "/modulos-em-acao/cliente/cliente-menu.jpg",
                 alt: "Cardápio do cliente com fotos",
               },
               {
-                src: "/modulos-em-acao/cliente/cliente-cardapio.png",
+                src: "/modulos-em-acao/cliente/cliente-cardapio.jpg",
                 alt: "Carrinho de compras do cliente",
               },
               {
-                src: "/modulos-em-acao/cliente/cliente-checkout.png",
+                src: "/modulos-em-acao/cliente/cliente-checkout.jpg",
                 alt: "Rastreamento de motoboy",
               },
 			  
 			  {
-                src: "/modulos-em-acao/cliente/cliente-checkout2.png",
+                src: "/modulos-em-acao/cliente/cliente-checkout2.jpg",
                 alt: "Rastreamento de motoboy",
               },
 
 				{
-                src: "/modulos-em-acao/cliente/cliente-status.png",
+                src: "/modulos-em-acao/cliente/cliente-status.jpg",
                 alt: "Rastreamento de motoboy",
               },
 			  {
-                src: "/modulos-em-acao/cliente/cliente-rastreio.png",
+                src: "/modulos-em-acao/cliente/cliente-rastreio.jpg",
                 alt: "Rastreamento de motoboy",
               },
             ]}
@@ -282,19 +282,19 @@ export function ModulosEmAcao() {
             delay={0.5}
             images={[
               {
-                src: "/modulos-em-acao/motoboy/motoboy-pedidos.png",
+                src: "/modulos-em-acao/motoboy/motoboy-pedidos.jpg",
                 alt: "Fila de pedidos para motoboy",
               },
               {
-                src: "/modulos-em-acao/motoboy/motoboy-detalhes.png",
+                src: "/modulos-em-acao/motoboy/motoboy-detalhes.jpg",
                 alt: "Tela de Detalhes do Pedido",
               },
               {
-                src: "/modulos-em-acao/motoboy/motoboy-aceito.png",
+                src: "/modulos-em-acao/motoboy/motoboy-aceito.jpg",
                 alt: "Pedido Aceito",
               },
 			  {
-                src: "/modulos-em-acao/motoboy/motoboy-entrega.png",
+                src: "/modulos-em-acao/motoboy/motoboy-entrega.jpg",
                 alt: "Confirmação de entrega",
               },
             ]}
