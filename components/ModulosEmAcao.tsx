@@ -1,8 +1,8 @@
 // components/ModulosEmAcao.tsx
 "use client"; 
 
-// 1. REMOVI o 'next/image'
 import { motion } from "framer-motion";
+// REMOVEMOS O 'next/image'
 import { useState } from "react"; 
 
 import Lightbox from "yet-another-react-lightbox";
@@ -33,8 +33,8 @@ const ModuloDisplay = ({
   }));
 
   return (
+    // Animação SÓ NO CARD (ISSO ESTÁ CERTO)
     <motion.div
-      // --- 2. REMOVI O h-full DAQUI ---
       className="bg-gray-800 p-6 rounded-xl border border-gray-700"
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -44,15 +44,11 @@ const ModuloDisplay = ({
       <h3 className="text-3xl font-semibold text-white">{title}</h3>
       <p className="mt-2 text-gray-400">{description}</p>
       <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+        
+        {/* --- ESTA É A SOLUÇÃO --- */}
+        {/* Eu REMOVI o <motion.div> que estava aqui */}
         {images.map((img, idx) => (
-          <motion.div
-            key={idx}
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true, amount: 0.5 }}
-            transition={{ duration: 0.5, delay: delay + 0.2 + idx * 0.1 }}
-          >
-            {/* --- 3. TROQUEI <Image> por <img> --- */}
+          <div key={idx}>
             <img
               src={img.src}
               alt={img.alt}
@@ -61,10 +57,12 @@ const ModuloDisplay = ({
                 setIndex(idx); 
                 setOpen(true); 
               }}
-              loading="lazy" // loading="lazy" do HTML
+              loading="lazy" 
             />
-          </motion.div>
+          </div>
         ))}
+        {/* --- FIM DA SOLUÇÃO --- */}
+
       </div>
 
       <Lightbox
@@ -279,7 +277,7 @@ export function ModulosEmAcao() {
                 alt: "Pedido Aceito",
               },
 			  {
-                src: "/modulos-em-acao/motoboy/motoboy-entrega.jpg", // <--- Corrigi o seu typo (tinha um ponto no final)
+                src: "/modulos-em-acao/motoboy/motoboy-entrega.jpg", 
                 alt: "Confirmação de entrega",
               },
             ]}

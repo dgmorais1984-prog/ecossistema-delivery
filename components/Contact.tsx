@@ -67,7 +67,7 @@ export function Contact() {
             </div>
             <div>
               <label htmlFor="company" className="block text-sm font-medium text-gray-300">
-                Nome da Lanchonete
+                Nome do Estabelecimento
               </label>
               <input
                 type="text"
